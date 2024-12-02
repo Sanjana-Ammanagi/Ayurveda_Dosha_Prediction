@@ -1,0 +1,70 @@
+.vata-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8fc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.vata-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #593919;
+    margin-bottom: 20px;
+}
+
+.question-box {
+    background-color: #f3ede5;
+    border: 1px solid #593919;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question-box p {
+    font-size: 1.0rem; /* Increases the font size */
+     /* Makes the text bold */
+    color: #333; /* Enhances text color for readability */
+    margin-bottom: 12px;
+}
+
+.radio-options {
+    display: flex;
+    gap: 20px;
+}
+
+.radio-options input {
+    margin-right: 8px;
+    transform: scale(1.2); /* Increases the size of the radio button */
+    cursor: pointer; /* Adds a pointer cursor on hover */
+}
+
+.radio-options label {
+    font-size: 1rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.submit-button {
+    display: block; /* Ensures the button is a block element */
+    margin-left: auto; /* Pushes the button to the right */
+    margin-top: 20px; /* Adds space between the form and the button */
+    padding: 10px 15px; /* Makes the button reasonably small */
+    background-color: #4caf50; /* Green background */
+    color: white; /* White text */
+    border: none; /* Removes border */
+    border-radius: 4px; /* Slightly rounded corners */
+    font-size: 1.0rem; /* Small font size */
+    cursor: pointer; /* Adds pointer cursor on hover */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Adds slight shadow */
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
