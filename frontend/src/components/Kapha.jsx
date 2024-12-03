@@ -18,7 +18,7 @@ const Kapha = ({ onSubmit }) => {
         "Are you slow in consuming the food? (Even after all have left the dining hall, you are still consuming the same amount of food).",
         "When you go to morning walk or college or office, do you walk slowly in comparison to others?",
         "If you are assigned any work, do you take some extra time to start it?",
-        "Do you get irritated easily? (For example, when you don’t get breakfast on time in your hostel or when the power goes off while watching a cricket match or your favourite movie on television).",
+        "Do you get irritated easily? (For example, when you do not get breakfast on time in your hostel or when the power goes off while watching a cricket match or your favourite movie on television).",
         "Are you late to develop/suffer from symptoms after exposure to common causative factors? (For example, during seasonal changes, when your friends are easily caught up with flu etc., you are still healthy among them).",
         "Does your gait (style of walking) change with respect to speed or manner frequently?",
         "Do you feel hungry more frequently and do you consume more food in comparison to others?",
@@ -59,7 +59,7 @@ const Kapha = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="yes"
                                 onChange={() => handleInputChange(question, 1)}
-                                // required
+                                required
                             />
                             Yes
                         </label>
@@ -69,7 +69,7 @@ const Kapha = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="no"
                                 onChange={() => handleInputChange(question, 0)}
-                                // required
+                                required
                             />
                             No
                         </label>

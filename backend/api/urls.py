@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import HelloWorld
+from .views import predict_doshas
 
 urlpatterns = [
-    path('hello/', HelloWorld.as_view(), name='hello-world'),
+    path('predict',predict_doshas ),
 ]
