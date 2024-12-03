@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 
 
 const Kapha = ({ onSubmit }) => {
     const [kaphaData, setKaphaData] = useState([]);
-
+    useEffect(() => {
+        // Scroll to the top of the page when the component mounts
+        window.scrollTo(0, 0);
+    }, []);
     const questions = [
         "Whether your skin remains oily throughout the year in comparison to others?",
         "Are your body-hairs & skin shiny, even when no oil or moisturizer is used?",
@@ -44,7 +47,7 @@ const Kapha = ({ onSubmit }) => {
     };
 
     return (
-        <div>
+        <div className="font">
                 <Navbar />
                 <div className="vata-container">
                     <h1 className="vata-title">Kapha Dosha Quiz</h1>
@@ -59,7 +62,7 @@ const Kapha = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="yes"
                                 onChange={() => handleInputChange(question, 1)}
-                                // required
+                                required
                             />
                             Yes
                         </label>
@@ -69,7 +72,7 @@ const Kapha = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="no"
                                 onChange={() => handleInputChange(question, 0)}
-                                // required
+                                required
                             />
                             No
                         </label>

@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 10px 20px;
     background-color: #593919; 
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -49,14 +49,4 @@
     color: #d6b99c; /* Olive green hover color */
 }
 
-.login-link a {
-    text-decoration: none;
-    font-size: 1rem;
-    color: #f3e9dc; /* Dark brownish-gray text for login link */
-    font-weight: 500;
-    margin-right: 20px;
-}
 
-.login-link a:hover {
-    color: #d6b99c; /* Olive green hover color */
-}

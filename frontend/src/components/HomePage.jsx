@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import "./HomePage.css";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom"; // Import navigation hook
 
 const HomePage = () => {
     const navigate = useNavigate(); // Initialize navigation function
-
+    useEffect(() => {
+        // Scroll to the top of the page when the component mounts
+        window.scrollTo(0, 0);
+    }, []);
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
     const [modalContent, setModalContent] = useState(""); // State for modal content
 
@@ -23,14 +26,14 @@ const HomePage = () => {
     };
 
     return (
-        <div>
+        <div className="font">
             <Navbar />
 
             {/* Main Content */}
-            <div className="main-content">
-                {/* Description Section */}
+            <div className="main-content" >
+            <h1 className="head">Ayurveda and the Doshas</h1>
                 <div className="description-section">
-                    <h1 className="head">Ayurveda and the Doshas</h1>
+                    
                     <p>
                         Ayurveda, the ancient Indian system of holistic healing, revolves around the concept of the three doshas: Vata, Pitta, and Kapha. These doshas are biological energies derived from the five elements—air, space, fire, water, and earth—and govern all physical and mental processes in the body. Each individual has a unique combination of these doshas, forming their constitution or Prakriti, which influences their health, personality, and tendencies. Ayurveda emphasizes maintaining the balance of these doshas to achieve optimal well-being and harmony.
                     </p>

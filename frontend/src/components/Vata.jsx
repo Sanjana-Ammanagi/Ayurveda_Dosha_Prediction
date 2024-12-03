@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Vata.css";
 import { useNavigate } from "react-router-dom";
 
 const Vata = ({ onSubmit }) => {
     const [VataData, setVataData] = useState([]);
+    useEffect(() => {
+        // Scroll to the top of the page when the component mounts
+        window.scrollTo(0, 0);
+    }, []);
 
     const questions = [
         "Whether your skin remains dry throughout the year in comparison to others?",
@@ -47,7 +51,7 @@ const Vata = ({ onSubmit }) => {
     };
 
     return (
-            <div>
+            <div className="font">
                 <Navbar />
                 <div className="vata-container">
                     <h1 className="vata-title">Vata Dosha Quiz</h1>
@@ -62,7 +66,7 @@ const Vata = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="yes"
                                 onChange={() => handleInputChange(question, 1)}
-                                // required
+                                required
                             />
                             Yes
                         </label>
@@ -72,7 +76,7 @@ const Vata = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="no"
                                 onChange={() => handleInputChange(question, 0)}
-                                // required
+                                required
                             />
                             No
                         </label>

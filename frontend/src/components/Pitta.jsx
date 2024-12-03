@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Vata.css"; // Reuse the same CSS as the Vata page.
 import { useNavigate } from "react-router-dom";
 
 const Pitta = ({ onSubmit }) => {
     const [PittaData, setPittaData] = useState([]);
+    useEffect(() => {
+        // Scroll to the top of the page when the component mounts
+        window.scrollTo(0, 0);
+    }, []);
 
     const questions = [
         "Are you more comfortable in winter than summer?",
@@ -39,7 +43,7 @@ const Pitta = ({ onSubmit }) => {
     };
 
     return (
-        <div>
+        <div className="font">
                 <Navbar />
                 <div className="vata-container">
                     <h1 className="vata-title">Pitta Dosha Quiz</h1>
@@ -54,7 +58,7 @@ const Pitta = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="yes"
                                 onChange={() => handleInputChange(question, 1)}
-                                // required
+                                required
                             />
                             Yes
                         </label>
@@ -64,7 +68,7 @@ const Pitta = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="no"
                                 onChange={() => handleInputChange(question, 0)}
-                                // required
+                                required
                             />
                             No
                         </label>

@@ -18,10 +18,7 @@ const Navbar = () => {
                 </ul>
             </div>
 
-            {/* Login Link Section */}
-            <div className="login-link">
-                <a href="#login">Login</a>
-            </div>
+            
         </nav>
     );
 };
