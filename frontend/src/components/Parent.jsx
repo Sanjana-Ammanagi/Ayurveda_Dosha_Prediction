@@ -26,18 +26,28 @@ const Parent = () => {
     };
 
     const handleFinalSubmit = () => {
-        console.log("Final Form Data to be submitted:", formData);
+       console.log("Final Form Data to be submitted:", formData);
         // Send `formData` to the backend
-        fetch("http://your-backend-url.com/submit", {
+        fetch("http://127.0.0.1:8000/predict", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formData)
         })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log("Model Prediction Result:", result);
+        .then((response) => {
+            console.log("response",response)
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log('response ok')
+            return response.json();  // Parse the response JSON
+        })
+        .then((result) => {
+            // Log the prediction results
+            console.log("Kapha Prediction:", result.kapha_prediction);
+            console.log("Pitta Prediction:", result.pitta_prediction);
+            console.log("Vata Prediction:", result.vata_prediction);
             })
             .catch((error) => console.error("Error:", error));
     };
@@ -63,10 +73,6 @@ const Parent = () => {
                 }} />
             )}
 
-            {/* Show Submit All button after Kapha quiz is completed */}
-            {currentStep >=3 && (
-                <button onClick={handleFinalSubmit}>Submit All</button>
-            )}
         </div>
     );
 };
