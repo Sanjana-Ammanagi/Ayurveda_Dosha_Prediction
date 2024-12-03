@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-
 
 const Kapha = ({ onSubmit }) => {
     const [kaphaData, setKaphaData] = useState([]);
+    const navigate = useNavigate(); // Use the hook to navigate to another route
+
     useEffect(() => {
         // Scroll to the top of the page when the component mounts
         window.scrollTo(0, 0);
     }, []);
+
     const questions = [
         "Whether your skin remains oily throughout the year in comparison to others?",
         "Are your body-hairs & skin shiny, even when no oil or moisturizer is used?",
@@ -44,46 +47,47 @@ const Kapha = ({ onSubmit }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(kaphaData); // Pass collected data back to parent
+        // navigate("/result", { state: { kaphaData } }); // Navigate to the result page with data
     };
 
     return (
         <div className="font">
-                <Navbar />
-                <div className="vata-container">
-                    <h1 className="vata-title">Kapha Dosha Quiz</h1>
-        <form onSubmit={handleSubmit}>
-            {questions.map((question, index) => (
-                <div className="question-box" key={index}>
-                    <p>{question}</p>
-                    <div className="radio-options">
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="yes"
-                                onChange={() => handleInputChange(question, 1)}
-                                required
-                            />
-                            Yes
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="no"
-                                onChange={() => handleInputChange(question, 0)}
-                                required
-                            />
-                            No
-                        </label>
-                    </div>
-                </div>
-            ))}
-            <button type="submit" className="submit-button">
-                Submit
-            </button>
-        </form>
-        </div>
+            <Navbar />
+            <div className="vata-container">
+                <h1 className="vata-title">Kapha Dosha Quiz</h1>
+                <form onSubmit={handleSubmit}>
+                    {questions.map((question, index) => (
+                        <div className="question-box" key={index}>
+                            <p>{question}</p>
+                            <div className="radio-options">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="yes"
+                                        onChange={() => handleInputChange(question, 1)}
+                                        // required
+                                    />
+                                    Yes
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="no"
+                                        onChange={() => handleInputChange(question, 0)}
+                                        // required
+                                    />
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    ))}
+                    <button type="submit" className="submit-button">
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

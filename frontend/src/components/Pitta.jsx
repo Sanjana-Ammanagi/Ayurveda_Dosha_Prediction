@@ -58,7 +58,7 @@ const Pitta = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="yes"
                                 onChange={() => handleInputChange(question, 1)}
-                                required
+                                // required
                             />
                             Yes
                         </label>
@@ -68,7 +68,7 @@ const Pitta = ({ onSubmit }) => {
                                 name={`question-${index}`}
                                 value="no"
                                 onChange={() => handleInputChange(question, 0)}
-                                required
+                                // required
                             />
                             No
                         </label>
