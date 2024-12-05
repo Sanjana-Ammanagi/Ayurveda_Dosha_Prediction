@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 
 const AboutUs = () => {
   return (
+    
     <div className="about-us-container">
       <Navbar />
       <div className="background-image">
@@ -34,31 +35,14 @@ const AboutUs = () => {
           <section className="story-section">
             <h2>Our Story</h2>
             <div className="story-content">
-              <img src="/team_photo.jpg" alt="Our Team" />
+              <img src="/main_image1.jpg" alt="Our Team" />
               <p>
                 We were inspired to create Ayurved Dosha Prediction after witnessing the power of Ayurveda in improving well-being. Since our inception, we've worked tirelessly to make Ayurvedic knowledge more interactive and personalized.
               </p>
             </div>
           </section>
 
-          {/* Statistics Section */}
-          <section className="statistics-section">
-            <h2>Our Impact</h2>
-            <div className="stats">
-              <div className="stat-item">
-                <h3>5,000+</h3>
-                <p>Users Helped</p>
-              </div>
-              <div className="stat-item">
-                <h3>100+</h3>
-                <p>Educational Resources</p>
-              </div>
-              <div className="stat-item">
-                <h3>3</h3>
-                <p>Core Doshas Analyzed</p>
-              </div>
-            </div>
-          </section>
+          
         </div>
       </div>
     </div>

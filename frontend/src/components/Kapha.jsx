@@ -47,7 +47,7 @@ const Kapha = ({ onSubmit }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(kaphaData); // Pass collected data back to parent
-        // navigate("/result", { state: { kaphaData } }); // Navigate to the result page with data
+         navigate("/results", { state: { kaphaData } }); // Navigate to the result page with data
     };
 
     return (

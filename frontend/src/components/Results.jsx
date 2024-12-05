@@ -15,7 +15,7 @@ const Results = () => {
             <div className="results-card-container">
                 {/* Card for Vata */}
                 <div className="results-card">
-                    <img src="/wind.png" alt="Vata" className="dosha-icon" />
+                    <img src="/wind (1).png" alt="Vata" className="dosha-icon" />
                     <h3>VATA</h3>
                     <p>
                         Percentage:
@@ -24,7 +24,7 @@ const Results = () => {
 
                 {/* Card for Pitta */}
                 <div className="results-card">
-                    <img src="/fire.png" alt="Pitta" className="dosha-icon" />
+                    <img src="/fire (1).png" alt="Pitta" className="dosha-icon" />
                     <h3>PITTA</h3>
                     <p>
                     Percentage:
@@ -33,7 +33,7 @@ const Results = () => {
 
                 {/* Card for Kapha */}
                 <div className="results-card">
-                    <img src="/water.png" alt="Kapha" className="dosha-icon" />
+                    <img src="/water-drop.png" alt="Kapha" className="dosha-icon" />
                     <h3>KAPHA</h3>
                     <p>
                     Percentage:
