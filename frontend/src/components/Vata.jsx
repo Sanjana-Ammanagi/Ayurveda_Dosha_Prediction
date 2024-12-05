@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Vata.css";
-import { useNavigate } from "react-router-dom";
+
 
 const Vata = ({ onSubmit }) => {
     const [VataData, setVataData] = useState([]);
+
+    const scrollToTop = () => {
+        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
+        const scrollAnimation = () => {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, window.scrollY - scrollStep);
+                requestAnimationFrame(scrollAnimation);
+            }
+        };
+        scrollAnimation();
+    };
+    
+    useEffect(() => {
+        scrollToTop();
+    }, []);
 
     const questions = [
         "Whether your skin remains dry throughout the year in comparison to others?",
@@ -47,44 +62,44 @@ const Vata = ({ onSubmit }) => {
     };
 
     return (
-            <div>
-                <Navbar />
-                <div className="vata-container">
-                    <h1 className="vata-title">Vata Dosha Quiz</h1>
-                    <form onSubmit={handleSubmit}>
-            {questions.map((question, index) => (
-                <div className="question-box" key={index}>
-                    <p>{question}</p>
-                    <div className="radio-options">
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="yes"
-                                onChange={() => handleInputChange(question, 1)}
-                                required
-                            />
-                            Yes
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="no"
-                                onChange={() => handleInputChange(question, 0)}
-                                required
-                            />
-                            No
-                        </label>
-                    </div>
-                </div>
-            ))}
-            <button type="submit" className="submit-button">
-                Next
-            </button>
-        </form>
-                </div>
+        <div>
+            <Navbar />
+            <div className="vata-container">
+                <h1 className="vata-title">Vata Prakriti</h1>
+                <form onSubmit={handleSubmit}>
+                    {questions.map((question, index) => (
+                        <div className="question-box" key={index}>
+                            <p>{question}</p>
+                            <div className="radio-options">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="yes"
+                                        onChange={() => handleInputChange(question, 1)}
+                                        required
+                                    />
+                                    Yes
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="no"
+                                        onChange={() => handleInputChange(question, 0)}
+                                        required
+                                    />
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    ))}
+                    <button type="submit" className="submit-button">
+                        Next
+                    </button>
+                </form>
             </div>
+        </div>
     );
 };
 

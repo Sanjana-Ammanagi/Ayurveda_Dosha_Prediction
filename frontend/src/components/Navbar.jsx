@@ -7,20 +7,17 @@ const Navbar = () => {
         <nav className="navbar">
             {/* Logo and Links Section */}
             <div className="logo-and-links">
-                <div className="navbar-logo">Ayurveda</div>
+                {/* Logo Image */}
+                <img src="\flower.png" alt="Logo" className="navbar-logo-image" />
+                <div className="navbar-logo-text">DoshaBloom</div>
                 <ul className="navbar-links">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/learn">Learn</Link>
+                        <Link to="/aboutus">About Us</Link>
                     </li>
                 </ul>
-            </div>
-
-            {/* Login Link Section */}
-            <div className="login-link">
-                <a href="#login">Login</a>
             </div>
         </nav>
     );

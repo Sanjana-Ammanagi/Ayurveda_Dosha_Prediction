@@ -55,8 +55,8 @@
     margin-left: auto; /* Pushes the button to the right */
     margin-top: 20px; /* Adds space between the form and the button */
     padding: 10px 15px; /* Makes the button reasonably small */
-    background-color: #4caf50; /* Green background */
-    color: white; /* White text */
+    background-color: #593919; /* Green background */
+    color: #f3e9dc; /* White text */
     border: none; /* Removes border */
     border-radius: 4px; /* Slightly rounded corners */
     font-size: 1.0rem; /* Small font size */
@@ -66,5 +66,16 @@
 }
 
 .submit-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    color: #d6b99c; /* Darker green on hover */
+}
+
+
+
+input[type="radio"] {
+    accent-color: #593919; 
+}
+
+
+.font{
+    font-family: 'Poppins', sans-serif;
 }
