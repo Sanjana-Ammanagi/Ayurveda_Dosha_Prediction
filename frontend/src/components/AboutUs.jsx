@@ -2,12 +2,26 @@ import React from "react";
 import "./AboutUs.css"; // CSS for custom styling
 import Navbar from "./Navbar";
 
+
 const AboutUs = () => {
   return (
-    
     <div className="about-us-container">
+      <img 
+          src="/background.png" 
+          alt="Background" 
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            zIndex: "-1",
+            backgroundSize: "cover",
+          }} 
+        />
       <Navbar />
       <div className="background-image">
+        {/* Background image */}
+        
         {/* Semi-transparent overlay for readability */}
         <div className="overlay"></div>
 
@@ -41,8 +55,6 @@ const AboutUs = () => {
               </p>
             </div>
           </section>
-
-          
         </div>
       </div>
     </div>
@@ -50,3 +62,4 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+

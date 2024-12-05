@@ -64,9 +64,9 @@ const Parent = () => {
             )}
 
             {/* Show Submit All button after Kapha quiz is completed */}
-            {currentStep >=3 && (
+            {/* {currentStep >=3 && (
                 <button onClick={handleFinalSubmit}>Submit All</button>
-            )}
+            )} */}
         </div>
     );
 };
