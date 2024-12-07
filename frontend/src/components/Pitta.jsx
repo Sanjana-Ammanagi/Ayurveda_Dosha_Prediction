@@ -2,24 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Vata.css"; // Reuse the same CSS as the Vata page.
 
-
 const Pitta = ({ onSubmit }) => {
-    const [PittaData, setPittaData] = useState([]);
-    const scrollToTop = () => {
-        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
-        const scrollAnimation = () => {
-            if (window.scrollY > 0) {
-                window.scrollTo(0, window.scrollY - scrollStep);
-                requestAnimationFrame(scrollAnimation);
-            }
-        };
-        scrollAnimation();
-    };
-    
-    useEffect(() => {
-        scrollToTop();
-    }, []);
-
     const questions = [
         "Are you more comfortable in winter than summer?",
         "Among your family members, is your complexion considered fairer?",
@@ -38,17 +21,38 @@ const Pitta = ({ onSubmit }) => {
         "Do your friends complain of bad smell being emitted from your body & mouth?",
     ];
 
-    const handleInputChange = (question, value) => {
-        // Update the state to include both the question and the corresponding answer
+    // Initialize state with all questions and default answers
+    const [PittaData, setPittaData] = useState(
+        questions.map((question) => ({ question, answer: null }))
+    );
+
+    const scrollToTop = () => {
+        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
+        const scrollAnimation = () => {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, window.scrollY - scrollStep);
+                requestAnimationFrame(scrollAnimation);
+            }
+        };
+        scrollAnimation();
+    };
+
+    useEffect(() => {
+        scrollToTop();
+    }, []);
+
+    const handleInputChange = (index, value) => {
+        // Update the specific question's answer while maintaining the order
         setPittaData((prevData) => {
-            const newData = prevData.filter((item) => item.question !== question);
-            return [...newData, { question, answer: value }];
+            const updatedData = [...prevData];
+            updatedData[index].answer = value;
+            return updatedData;
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(PittaData); // Pass collected data back to parent
+        onSubmit(PittaData); // Pass the collected data back to the parent
     };
 
     return (
@@ -65,9 +69,9 @@ const Pitta = ({ onSubmit }) => {
                                     <input
                                         type="radio"
                                         name={`question-${index}`}
-                                        value="yes"
-                                        onChange={() => handleInputChange(question, 1)}
-                                        required
+                                        value="1"
+                                        checked={PittaData[index].answer === 1}
+                                        onChange={() => handleInputChange(index, 1)}
                                     />
                                     Yes
                                 </label>
@@ -75,9 +79,9 @@ const Pitta = ({ onSubmit }) => {
                                     <input
                                         type="radio"
                                         name={`question-${index}`}
-                                        value="no"
-                                        onChange={() => handleInputChange(question, 0)}
-                                        required
+                                        value="0"
+                                        checked={PittaData[index].answer === 0}
+                                        onChange={() => handleInputChange(index, 0)}
                                     />
                                     No
                                 </label>

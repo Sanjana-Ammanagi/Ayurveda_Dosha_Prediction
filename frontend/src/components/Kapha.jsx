@@ -1,27 +1,10 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-
+import "./Vata.css"; // Assuming the same CSS file is reused.
 
 const Kapha = ({ onSubmit }) => {
-    const [kaphaData, setKaphaData] = useState([]);
-
-    const scrollToTop = () => {
-        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
-        const scrollAnimation = () => {
-            if (window.scrollY > 0) {
-                window.scrollTo(0, window.scrollY - scrollStep);
-                requestAnimationFrame(scrollAnimation);
-            }
-        };
-        scrollAnimation();
-    };
-    
-    useEffect(() => {
-        scrollToTop();
-    }, []);
-
     const questions = [
-        "Whether your skin remains oily throughout the year in comparison to others?",        
+        "Whether your skin remains oily throughout the year in comparison to others?",
         "Are your body-hairs & skin shiny, even when no oil or moisturizer is used?",
         "Are you considered attractive among your friends?",
         "Do even mild or trivial injuries on your body make you upset?",
@@ -45,29 +28,30 @@ const Kapha = ({ onSubmit }) => {
         "Have you got sweet & pleasant voice?",
     ];
 
-    // const handleInputChange = (question, value) => {
-    //     // Update the state to include both the question and the corresponding answer
-    //     setKaphaData((prevData) => {
-    //         const newData = prevData.filter((item) => item.question !== question);
-    //         return [...newData, { question, answer: value }];
-    //     });
-    // };
+    const [kaphaData, setKaphaData] = useState(
+        questions.map((question) => ({ question, answer: null }))
+    );
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     onSubmit(kaphaData); // Pass collected data back to parent
-    // };
-
-    const handleInputChange = (question, value) => {
-        setKaphaData((prevData) => {
-            // Find if the question already exists
-            const updatedData = prevData.map((item) =>
-                item.question === question ? { ...item, answer: value } : item
-            );
-            // If the question doesn't exist, add a new one
-            if (!updatedData.find((item) => item.question === question)) {
-                updatedData.push({ question, answer: value });
+    const scrollToTop = () => {
+        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
+        const scrollAnimation = () => {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, window.scrollY - scrollStep);
+                requestAnimationFrame(scrollAnimation);
             }
+        };
+        scrollAnimation();
+    };
+
+    useEffect(() => {
+        scrollToTop();
+    }, []);
+
+    const handleInputChange = (index, value) => {
+        // Update the specific question's answer while maintaining the order
+        setKaphaData((prevData) => {
+            const updatedData = [...prevData];
+            updatedData[index].answer = value;
             return updatedData;
         });
     };
@@ -75,7 +59,7 @@ const Kapha = ({ onSubmit }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("Kapha Data to be submitted:", kaphaData); // Debug log to check data
-        onSubmit(kaphaData); // Pass collected data back to parent
+        onSubmit(kaphaData); // Pass the collected data back to the parent
     };
 
     return (
@@ -92,8 +76,9 @@ const Kapha = ({ onSubmit }) => {
                                     <input
                                         type="radio"
                                         name={`question-${index}`}
-                                        value="yes"
-                                        onChange={() => handleInputChange(question, 1)}
+                                        value="1"
+                                        checked={kaphaData[index].answer === 1}
+                                        onChange={() => handleInputChange(index, 1)}
                                         required
                                     />
                                     Yes
@@ -102,8 +87,9 @@ const Kapha = ({ onSubmit }) => {
                                     <input
                                         type="radio"
                                         name={`question-${index}`}
-                                        value="no"
-                                        onChange={() => handleInputChange(question, 0)}
+                                        value="0"
+                                        checked={kaphaData[index].answer === 0}
+                                        onChange={() => handleInputChange(index, 0)}
                                         required
                                     />
                                     No

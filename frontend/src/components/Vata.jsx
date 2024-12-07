@@ -1,26 +1,8 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Vata.css";
 
-
 const Vata = ({ onSubmit }) => {
-    const [VataData, setVataData] = useState([]);
-
-    const scrollToTop = () => {
-        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
-        const scrollAnimation = () => {
-            if (window.scrollY > 0) {
-                window.scrollTo(0, window.scrollY - scrollStep);
-                requestAnimationFrame(scrollAnimation);
-            }
-        };
-        scrollAnimation();
-    };
-    
-    useEffect(() => {
-        scrollToTop();
-    }, []);
-
     const questions = [
         "Whether your skin remains dry throughout the year in comparison to others?",
         "Is your body undernourished/ emaciated?",
@@ -47,18 +29,38 @@ const Vata = ({ onSubmit }) => {
         "Are some crackling sounds produced in your joints during movements?",
     ];
 
+    // Initialize state with all questions and default answers
+    const [VataData, setVataData] = useState(
+        questions.map((question) => ({ question, answer: null }))
+    );
 
-    const handleInputChange = (question, value) => {
-        // Update the state to include both the question and the corresponding answer
+    const scrollToTop = () => {
+        const scrollStep = window.scrollY / 20;
+        const scrollAnimation = () => {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, window.scrollY - scrollStep);
+                requestAnimationFrame(scrollAnimation);
+            }
+        };
+        scrollAnimation();
+    };
+
+    useEffect(() => {
+        scrollToTop();
+    }, []);
+
+    const handleInputChange = (index, value) => {
+        // Update the specific question's answer while maintaining the order
         setVataData((prevData) => {
-            const newData = prevData.filter((item) => item.question !== question);
-            return [...newData, { question, answer: value }];
+            const updatedData = [...prevData];
+            updatedData[index].answer = value;
+            return updatedData;
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(VataData); // Pass collected data back to parent
+        onSubmit(VataData); // Pass the collected data back to the parent
     };
 
     return (
@@ -75,9 +77,9 @@ const Vata = ({ onSubmit }) => {
                                     <input
                                         type="radio"
                                         name={`question-${index}`}
-                                        value="yes"
-                                        onChange={() => handleInputChange(question, 1)}
-                                        required
+                                        value="1"
+                                        checked={VataData[index].answer === 1}
+                                        onChange={() => handleInputChange(index, 1)}
                                     />
                                     Yes
                                 </label>
@@ -85,9 +87,9 @@ const Vata = ({ onSubmit }) => {
                                     <input
                                         type="radio"
                                         name={`question-${index}`}
-                                        value="no"
-                                        onChange={() => handleInputChange(question, 0)}
-                                        required
+                                        value="0"
+                                        checked={VataData[index].answer === 0}
+                                        onChange={() => handleInputChange(index, 0)}
                                     />
                                     No
                                 </label>
