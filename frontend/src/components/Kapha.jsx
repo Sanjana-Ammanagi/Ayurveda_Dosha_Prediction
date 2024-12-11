@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-
+import "./Vata.css"; // Assuming the same CSS file is reused.
 
 const Kapha = ({ onSubmit }) => {
-    const [kaphaData, setKaphaData] = useState([]);
-    useEffect(() => {
-        // Scroll to the top of the page when the component mounts
-        window.scrollTo(0, 0);
-    }, []);
     const questions = [
         "Whether your skin remains oily throughout the year in comparison to others?",
         "Are your body-hairs & skin shiny, even when no oil or moisturizer is used?",
@@ -33,57 +28,80 @@ const Kapha = ({ onSubmit }) => {
         "Have you got sweet & pleasant voice?",
     ];
 
-    const handleInputChange = (question, value) => {
-        // Update the state to include both the question and the corresponding answer
+    const [kaphaData, setKaphaData] = useState(
+        questions.map((question) => ({ question, answer: null }))
+    );
+
+    const scrollToTop = () => {
+        const scrollStep = window.scrollY / 20; // Adjust the divisor for slower or faster scrolling
+        const scrollAnimation = () => {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, window.scrollY - scrollStep);
+                requestAnimationFrame(scrollAnimation);
+            }
+        };
+        scrollAnimation();
+    };
+
+    useEffect(() => {
+        scrollToTop();
+    }, []);
+
+    const handleInputChange = (index, value) => {
+        // Update the specific question's answer while maintaining the order
         setKaphaData((prevData) => {
-            const newData = prevData.filter((item) => item.question !== question);
-            return [...newData, { question, answer: value }];
+            const updatedData = [...prevData];
+            updatedData[index].answer = value;
+            return updatedData;
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(kaphaData); // Pass collected data back to parent
+        console.log("Kapha Data to be submitted:", kaphaData); // Debug log to check data
+        onSubmit(kaphaData); // Pass the collected data back to the parent
     };
 
     return (
-        <div className="font">
-                <Navbar />
-                <div className="vata-container">
-                    <h1 className="vata-title">Kapha Dosha Quiz</h1>
-        <form onSubmit={handleSubmit}>
-            {questions.map((question, index) => (
-                <div className="question-box" key={index}>
-                    <p>{question}</p>
-                    <div className="radio-options">
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="yes"
-                                onChange={() => handleInputChange(question, 1)}
-                                required
-                            />
-                            Yes
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="no"
-                                onChange={() => handleInputChange(question, 0)}
-                                required
-                            />
-                            No
-                        </label>
-                    </div>
-                </div>
-            ))}
-            <button type="submit" className="submit-button">
-                Submit
-            </button>
-        </form>
-        </div>
+        <div>
+            <Navbar />
+            <div className="vata-container">
+                <h1 className="vata-title">Kapha Prakriti</h1>
+                <form onSubmit={handleSubmit}>
+                    {questions.map((question, index) => (
+                        <div className="question-box" key={index}>
+                            <p>{question}</p>
+                            <div className="radio-options">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="1"
+                                        checked={kaphaData[index].answer === 1}
+                                        onChange={() => handleInputChange(index, 1)}
+                                        required
+                                    />
+                                    Yes
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="0"
+                                        checked={kaphaData[index].answer === 0}
+                                        onChange={() => handleInputChange(index, 0)}
+                                        required
+                                    />
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    ))}
+                    <button type="submit" className="submit-button">
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

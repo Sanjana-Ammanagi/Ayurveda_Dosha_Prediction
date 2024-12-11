@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 import pandas as pd
 import joblib
 import os
-from django.conf import settings  # Access Django's settings
+from django.conf import settings
 
 # Dynamically construct the path to the models
 KAPHA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'kapha_model.pkl')
@@ -26,9 +26,9 @@ def predict_doshas(request):
         pitta_data = raw_data.get('pitta', [])
         vata_data = raw_data.get('vata', [])
 
-        # print(kapha_data)
-        # print(pitta_data)
-        # print(vata_data)
+        # print("kapha -",kapha_data)
+        # print("Pitta - ",pitta_data)
+        # print("Vata - ",vata_data)
 
         # Function to process dosha data and predict using the corresponding model
         def predict_dosha(data, model):

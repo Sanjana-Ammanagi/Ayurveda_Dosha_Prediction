@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Vata from "./Vata";
 import Pitta from "./Pitta";
 import Kapha from "./Kapha";
@@ -7,72 +8,90 @@ const Parent = () => {
     const [formData, setFormData] = useState({
         vata: {},
         pitta: {},
-        kapha: {}
+        kapha: {},
     });
 
-    const [currentStep, setCurrentStep] = useState(1); // Track current quiz step (1 for Vata, 2 for Pitta, 3 for Kapha)
+    const [currentStep, setCurrentStep] = useState(1); // Step 1 = Vata, 2 = Pitta, 3 = Kapha
+    const navigate = useNavigate();
 
     const handleFormSubmit = (dosha, data) => {
-        setFormData((prevState) => ({
-            ...prevState,
+        console.log(`Received ${dosha} data:`, data); // Debug log to check
+        setFormData((prev) => ({
+            ...prev,
             [dosha]: data,
-
         }));
-        
     };
 
-    const handleNextStep = () => {
-        setCurrentStep(currentStep + 1); // Move to next quiz step
-    };
+    const handleNextStep = async () => {
+        if (currentStep < 3) {
+            setCurrentStep(currentStep + 1); // Move to the next step
+        } else {
+            // Make the API call only after all steps are completed
+            try {
+                console.log("Final Form Data to be submitted:", formData);
+                const response = await fetch("http://127.0.0.1:8000/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                });
 
-    const handleFinalSubmit = () => {
-       console.log("Final Form Data to be submitted:", formData);
-        // Send `formData` to the backend
-        fetch("http://127.0.0.1:8000/predict", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then((response) => {
-            console.log("response",response)
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const result = await response.json(); // Parse the JSON response
+                console.log("API Response:", result);
+                // Navigate to results page with data
+                navigate("/results", {
+                    state: {
+                        predictions: {
+                            vata: result.vata_prediction,
+                            pitta: result.pitta_prediction,
+                            kapha: result.kapha_prediction,
+                        },
+                    },
+                });
+            } catch (error) {
+                console.error("Error during API call:", error);
             }
-            console.log('response ok')
-            return response.json();  // Parse the response JSON
-        })
-        .then((result) => {
-            // Log the prediction results
-            console.log("Kapha Prediction:", result.kapha_prediction);
-            console.log("Pitta Prediction:", result.pitta_prediction);
-            console.log("Vata Prediction:", result.vata_prediction);
-            })
-            .catch((error) => console.error("Error:", error));
+        }
     };
+
+    // Effect to trigger API call after formData is updated
+    useEffect(() => {
+        if (currentStep === 4) {
+            handleNextStep(); // Ensure API is called when formData is updated and all steps are complete
+        }
+    }, [formData]); // Run the effect whenever formData changes
 
     return (
         <div>
             {currentStep === 1 && (
-                <Vata onSubmit={(data) => {
-                    handleFormSubmit("vata", data);
-                    handleNextStep(); // Go to next step (Pitta)
-                }} />
+                <Vata
+                    onSubmit={(data) => {
+                        handleFormSubmit("vata", data);
+                        setCurrentStep(currentStep + 1); // Move to the next step after form submission
+                    }}
+                />
             )}
             {currentStep === 2 && (
-                <Pitta onSubmit={(data) => {
-                    handleFormSubmit("pitta", data);
-                    handleNextStep(); // Go to next step (Kapha)
-                }} />
+                <Pitta
+                    onSubmit={(data) => {
+                        handleFormSubmit("pitta", data);
+                        setCurrentStep(currentStep + 1); // Move to the next step after form submission
+                    }}
+                />
             )}
             {currentStep === 3 && (
-                <Kapha onSubmit={(data) => {
-                    handleFormSubmit("kapha", data);
-                    handleFinalSubmit(); // Submit all data after Kapha
-                }} />
+                <Kapha
+                    onSubmit={(data) => {
+                        handleFormSubmit("kapha", data);
+                        setCurrentStep(currentStep + 1); // Move to the next step after form submission
+                    }}
+                />
             )}
-
         </div>
     );
 };

@@ -69,6 +69,13 @@
     color: #d6b99c; /* Darker green on hover */
 }
 
+
+
+input[type="radio"] {
+    accent-color: #593919; 
+}
+
+
 .font{
     font-family: 'Poppins', sans-serif;
 }

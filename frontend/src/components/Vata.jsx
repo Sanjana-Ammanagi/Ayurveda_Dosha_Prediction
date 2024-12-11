@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Vata.css";
-import { useNavigate } from "react-router-dom";
 
 const Vata = ({ onSubmit }) => {
-    const [VataData, setVataData] = useState([]);
-    useEffect(() => {
-        // Scroll to the top of the page when the component mounts
-        window.scrollTo(0, 0);
-    }, []);
-
     const questions = [
         "Whether your skin remains dry throughout the year in comparison to others?",
         "Is your body undernourished/ emaciated?",
@@ -36,59 +29,79 @@ const Vata = ({ onSubmit }) => {
         "Are some crackling sounds produced in your joints during movements?",
     ];
 
+    // Initialize state with all questions and default answers
+    const [VataData, setVataData] = useState(
+        questions.map((question) => ({ question, answer: null }))
+    );
 
-    const handleInputChange = (question, value) => {
-        // Update the state to include both the question and the corresponding answer
+    const scrollToTop = () => {
+        const scrollStep = window.scrollY / 20;
+        const scrollAnimation = () => {
+            if (window.scrollY > 0) {
+                window.scrollTo(0, window.scrollY - scrollStep);
+                requestAnimationFrame(scrollAnimation);
+            }
+        };
+        scrollAnimation();
+    };
+
+    useEffect(() => {
+        scrollToTop();
+    }, []);
+
+    const handleInputChange = (index, value) => {
+        // Update the specific question's answer while maintaining the order
         setVataData((prevData) => {
-            const newData = prevData.filter((item) => item.question !== question);
-            return [...newData, { question, answer: value }];
+            const updatedData = [...prevData];
+            updatedData[index].answer = value;
+            return updatedData;
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(VataData); // Pass collected data back to parent
+        onSubmit(VataData); // Pass the collected data back to the parent
     };
 
     return (
-            <div className="font">
-                <Navbar />
-                <div className="vata-container">
-                    <h1 className="vata-title">Vata Dosha Quiz</h1>
-                    <form onSubmit={handleSubmit}>
-            {questions.map((question, index) => (
-                <div className="question-box" key={index}>
-                    <p>{question}</p>
-                    <div className="radio-options">
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="yes"
-                                onChange={() => handleInputChange(question, 1)}
-                                required
-                            />
-                            Yes
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name={`question-${index}`}
-                                value="no"
-                                onChange={() => handleInputChange(question, 0)}
-                                required
-                            />
-                            No
-                        </label>
-                    </div>
-                </div>
-            ))}
-            <button type="submit" className="submit-button">
-                Next
-            </button>
-        </form>
-                </div>
+        <div>
+            <Navbar />
+            <div className="vata-container">
+                <h1 className="vata-title">Vata Prakriti</h1>
+                <form onSubmit={handleSubmit}>
+                    {questions.map((question, index) => (
+                        <div className="question-box" key={index}>
+                            <p>{question}</p>
+                            <div className="radio-options">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="1"
+                                        checked={VataData[index].answer === 1}
+                                        onChange={() => handleInputChange(index, 1)}
+                                    />
+                                    Yes
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        value="0"
+                                        checked={VataData[index].answer === 0}
+                                        onChange={() => handleInputChange(index, 0)}
+                                    />
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    ))}
+                    <button type="submit" className="submit-button">
+                        Next
+                    </button>
+                </form>
             </div>
+        </div>
     );
 };
 
