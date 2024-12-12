@@ -80,8 +80,9 @@ const Vata = ({ onSubmit }) => {
                                         value="1"
                                         checked={VataData[index].answer === 1}
                                         onChange={() => handleInputChange(index, 1)}
+                                        required
                                     />
-                                    Yes
+                                    <p>Yes</p>
                                 </label>
                                 <label>
                                     <input
@@ -90,8 +91,9 @@ const Vata = ({ onSubmit }) => {
                                         value="0"
                                         checked={VataData[index].answer === 0}
                                         onChange={() => handleInputChange(index, 0)}
+                                        required
                                     />
-                                    No
+                                    <p>No</p>
                                 </label>
                             </div>
                         </div>

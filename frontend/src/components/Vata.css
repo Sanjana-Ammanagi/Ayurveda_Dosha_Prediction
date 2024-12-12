@@ -47,6 +47,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    transform: translateY(-4px); /* Moves the label up */
+}
+.radio-options p{
+    transform: translateY(-10px); /* Moves the label up */
 }
 
 

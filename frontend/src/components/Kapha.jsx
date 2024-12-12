@@ -81,7 +81,7 @@ const Kapha = ({ onSubmit }) => {
                                         onChange={() => handleInputChange(index, 1)}
                                         required
                                     />
-                                    Yes
+                                    <p>Yes</p>
                                 </label>
                                 <label>
                                     <input
@@ -92,7 +92,7 @@ const Kapha = ({ onSubmit }) => {
                                         onChange={() => handleInputChange(index, 0)}
                                         required
                                     />
-                                    No
+                                    <p>No</p>
                                 </label>
                             </div>
                         </div>

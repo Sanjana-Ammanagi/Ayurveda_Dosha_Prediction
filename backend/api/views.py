@@ -6,9 +6,9 @@ import os
 from django.conf import settings
 
 # Dynamically construct the path to the models
-KAPHA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'kapha_model.pkl')
-PITTA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'pitta_model.pkl')
-VATA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'vata_model.pkl')
+KAPHA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'kapha_model_G.pkl')
+PITTA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'pitta_model_G.pkl')
+VATA_MODEL_PATH = os.path.join(settings.BASE_DIR, 'trained_models', 'vata_model_G.pkl')
 
 
 kapha_model = joblib.load(KAPHA_MODEL_PATH)

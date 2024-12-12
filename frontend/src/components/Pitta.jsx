@@ -72,8 +72,9 @@ const Pitta = ({ onSubmit }) => {
                                         value="1"
                                         checked={PittaData[index].answer === 1}
                                         onChange={() => handleInputChange(index, 1)}
+                                        required
                                     />
-                                    Yes
+                                    <p>Yes</p>
                                 </label>
                                 <label>
                                     <input
@@ -82,8 +83,9 @@ const Pitta = ({ onSubmit }) => {
                                         value="0"
                                         checked={PittaData[index].answer === 0}
                                         onChange={() => handleInputChange(index, 0)}
+                                        required
                                     />
-                                    No
+                                    <p>No</p>
                                 </label>
                             </div>
                         </div>

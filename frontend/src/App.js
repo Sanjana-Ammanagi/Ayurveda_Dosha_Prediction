@@ -7,6 +7,7 @@ import AboutUs from "./components/AboutUs";
 // import Kapha from "./components/Kapha";
 import Parent from "./components/Parent";
 import Results from "./components/Results";
+import Consultation from "./components/Consultation";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/aboutus" element={<AboutUs />} />
+                <Route path="/consultation" element={<Consultation />} />
                 <Route path="/main" element={<Parent />} />
                 {/* Nested routes for Vata, Pitta, and Kapha
                     <Route path="vata" element={<Vata />} />
